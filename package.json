@@ -1,0 +1,40 @@
+{
+  "name": "discogs-utils",
+  "version": "0.0.1",
+  "description": "Utils for discogs collections.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./src/index.js"
+  },
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/penx/discogs-utils.git"
+  },
+  "author": "Alasdair McLeay",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/penx/discogs-utils/issues"
+  },
+  "homepage": "https://github.com/penx/discogs-utils#readme",
+  "dependencies": {
+    "commander": "^2.12.2",
+    "disconnect": "^1.2.1",
+    "jsonfile": "^4.0.0",
+    "sanitize-filename": "^1.6.1"
+  },
+  "bin": {
+    "discogs-utils": "./src/index.js"
+  },
+  "devDependencies": {
+    "eslint": "^4.15.0",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-node": "^5.2.1",
+    "eslint-plugin-prettier": "^2.4.0",
+    "prettier": "^1.10.1"
+  },
+  "peerDependencies": {}
+}
