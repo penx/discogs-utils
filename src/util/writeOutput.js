@@ -4,7 +4,7 @@ const sanitize = require("sanitize-filename");
 function writeOutput(folder, releases) {
   console.log("writing file");
   try {
-    const filename = "output/" + sanitize(`${folder.name}.json`);
+    const filename = "output/" + sanitize(`${folder.name}` + `/index.json`);
     console.log("writing to " + filename);
     jsonfile.writeFile(
       filename,
@@ -21,4 +21,4 @@ function writeOutput(folder, releases) {
   }
 }
 
-module.exports = writeOutput
+module.exports = writeOutput;

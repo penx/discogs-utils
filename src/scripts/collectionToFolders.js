@@ -11,6 +11,7 @@ const { version } = require("../../package.json");
 
 const getReleases = require("../util/getReleases");
 const writeOutput = require("../util/writeOutput");
+const createFolderStructure = require("../util/createFolderStructure");
 const getClient = require("../util/getClient");
 const config = require("../config");
 
@@ -27,10 +28,11 @@ client
   .getFolders(config.user)
   .then(data => {
     return Promise.all(
-      data.folders.map(folder => {
+      data.folders.filter(folder => folder.id !== 0).map(folder => {
         return getReleases(client, config.user, folder.id)
           .then(releases => {
             writeOutput(folder, releases);
+            createFolderStructure(folder.name, releases);
           })
           .catch(error => console.log(error));
       })
