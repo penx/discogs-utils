@@ -1,22 +1,16 @@
-const jsonfile = require("jsonfile");
 const sanitize = require("sanitize-filename");
 
-function writeOutput(folder, releases) {
+const writeFile = require("./writeFile");
+
+async function writeOutput(folder, releases) {
   console.log("writing file");
   try {
+    // TODO: create output dir if doesn't exist
     const filename = "output/" + sanitize(`${folder.name}` + `/index.json`);
     console.log("writing to " + filename);
-    jsonfile.writeFile(
-      filename,
-      releases,
-      {
-        spaces: 2
-      },
-      e => {
-        console.log(e);
-      }
-    );
+    await writeFile(filename, releases);
   } catch (err) {
+    console.log("error 2");
     console.log(err);
   }
 }

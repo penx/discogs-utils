@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 const collection = require("./scripts/collectionToFolders");
-const getConfig = require("./util/getConfig");
 
 require("yargs")
   .usage("$0 <cmd> [args]")
@@ -18,8 +17,10 @@ require("yargs")
       });
     },
     argv => {
-      const config = getConfig(argv);
-      collection(config);
+      collection({
+        userToken: argv.token,
+        user: argv.user
+      });
     }
   )
   .help().argv;
