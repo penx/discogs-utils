@@ -4,7 +4,7 @@
   "description": "Utils for discogs collections.",
   "main": "index.js",
   "scripts": {
-    "start": "node ./src/scripts/collectionToFolders.js"
+    "start": "node ./src/index.js"
   },
   "engines": {
     "node": ">=8.0.0"
@@ -23,7 +23,8 @@
     "commander": "^2.12.2",
     "disconnect": "^1.2.1",
     "jsonfile": "^4.0.0",
-    "sanitize-filename": "^1.6.1"
+    "sanitize-filename": "^1.6.1",
+    "yargs": "^10.1.1"
   },
   "bin": {
     "discogs-utils": "./src/index.js"

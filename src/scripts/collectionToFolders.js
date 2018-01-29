@@ -6,36 +6,34 @@
 //  - for each release
 //    - create folder
 //    - create json file for each track
-const commander = require("commander");
-const { version } = require("../../package.json");
-
 const getReleases = require("../util/getReleases");
 const writeOutput = require("../util/writeOutput");
-const createFolderStructure = require("../util/createFolderStructure");
+// const createFolderStructure = require("../util/createFolderStructure");
 const getClient = require("../util/getClient");
-const config = require("../config");
 
-commander
-  .version(version)
-  .usage("<source> <target>")
-  .parse(process.argv);
+function collection({userToken, user}) {
+  console.log(userToken);
+  console.log(user);
+  const client = getClient(userToken);
 
-const client = getClient(config.userToken);
+  client
+    .user()
+    .collection()
+    .getFolders(user)
+    .then(data => {
+      console.log(data);
+      return Promise.all(
+        data.folders.filter(folder => folder.id !== 0).map(folder => {
+          return getReleases(client, user, folder.id)
+            .then(releases => {
+              writeOutput(folder, releases);
+              // createFolderStructure(folder.name, releases);
+            })
+            .catch(error => console.log(error));
+        })
+      );
+    })
+    .catch(error => console.log(error));
+}
 
-client
-  .user()
-  .collection()
-  .getFolders(config.user)
-  .then(data => {
-    return Promise.all(
-      data.folders.filter(folder => folder.id !== 0).map(folder => {
-        return getReleases(client, config.user, folder.id)
-          .then(releases => {
-            writeOutput(folder, releases);
-            createFolderStructure(folder.name, releases);
-          })
-          .catch(error => console.log(error));
-      })
-    );
-  })
-  .catch(error => console.log(error));
+module.exports = collection;
