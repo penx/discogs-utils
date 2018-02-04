@@ -7,11 +7,10 @@ function createFolderStructure(name, releases) {
   const foldername = "output/" + sanitize(`${name}`);
   if (!fs.existsSync(foldername)) {
     fs.mkdirSync(foldername);
-    console.log("releases.length");
-    console.log(releases.length);
-    releases[0].map(release => {
-      console.log(release.basic_information);
-      const cat = release.basic_information.labels[0].catno;
+    releases.map(release => {
+      const cat = release.basic_information.labels[0].catno
+        .replace(/[-. ]/gi, "")
+        .toUpperCase();
       const artist = release.basic_information.artists[0].name;
       const title = release.basic_information.title;
       const releaseFolderName = `${foldername}/[${sanitize(cat)}] ${sanitize(
@@ -21,8 +20,6 @@ function createFolderStructure(name, releases) {
         fs.mkdirSync(releaseFolderName);
       }
       jsonfile.writeFile(`${releaseFolderName}/index.json`, release);
-
-      console.log();
     });
     // releases.
   } else {

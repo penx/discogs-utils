@@ -8,12 +8,10 @@
 //    - create json file for each track
 const getReleases = require("../util/getReleases");
 const writeOutput = require("../util/writeOutput");
-// const createFolderStructure = require("../util/createFolderStructure");
+const createFolderStructure = require("../util/createFolderStructure");
 const getClient = require("../util/getClient");
 
 async function collection({ userToken, user }) {
-  console.log(userToken);
-  console.log(user);
   const client = getClient(userToken);
 
   const data = await client
@@ -21,9 +19,9 @@ async function collection({ userToken, user }) {
     .collection()
     .getFolders(user);
 
-  console.log(data);
   for (const folder of data.folders.filter(folder => folder.id !== 0)) {
     const releases = await getReleases(client, user, folder.id);
+    createFolderStructure(folder.name, releases);
     writeOutput(folder, releases);
   }
 }

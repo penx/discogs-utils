@@ -2,10 +2,8 @@ const fs = require("fs");
 const { promisify } = require("util");
 
 async function writeFile(filename, json) {
-  const data = JSON.stringify(json);
-  await promisify(fs.writeFile)(filename, data, {
-    spaces: 2
-  });
+  const data = JSON.stringify(json, null, 2);
+  await promisify(fs.writeFile)(filename, data);
 }
 
 module.exports = writeFile;
